@@ -7,6 +7,7 @@ public abstract class AbstractClickEventsToKinesis implements Runnable{
 
     protected final static String STREAM_NAME = "testStream";
     protected final static String REGION = "us-east-1";
+    protected final static Long RECORD_MAX_BUFFERED_TIME = 5000L;
     protected final BlockingQueue<ClickEvent> inputQueue;
     protected volatile boolean shutDown = false;
     protected final AtomicLong recordsPut = new AtomicLong(0);
@@ -32,4 +33,8 @@ public abstract class AbstractClickEventsToKinesis implements Runnable{
     }
 
     protected abstract void runOnce() throws Exception;
+
+    public long recordsPut() {
+        return recordsPut.get();
+    }
 }
