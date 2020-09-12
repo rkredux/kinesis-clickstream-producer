@@ -8,14 +8,14 @@ import java.util.concurrent.BlockingQueue;
 
 public class BasicClickEventsToKinesis extends AbstractClickEventsToKinesis {
 
-    //Uses the AmazonKinesisClient library not the KPL
-    private final AmazonKinesis amazonKinesisclient;
+    //Uses the AmazonKinesis library not the KPL
+    private final AmazonKinesis amazonKinesisClient;
 
     public BasicClickEventsToKinesis(BlockingQueue<ClickEvent> inputQueue) {
         super(inputQueue);
         final AmazonKinesisClientBuilder builder = AmazonKinesisClient.builder();
         builder.setRegion(REGION);
-        amazonKinesisclient = builder.build();
+        amazonKinesisClient = builder.build();
     }
 
     @Override
@@ -23,7 +23,7 @@ public class BasicClickEventsToKinesis extends AbstractClickEventsToKinesis {
         ClickEvent event = inputQueue.take();
         String partitionKey = event.getSessionId();
         ByteBuffer data = ByteBuffer.wrap(event.getPayload().getBytes("UTF-8"));
-        amazonKinesisclient.putRecord(STREAM_NAME, data, partitionKey);
+        amazonKinesisClient.putRecord(STREAM_NAME, data, partitionKey);
         recordsPut.getAndIncrement();
     }
 }

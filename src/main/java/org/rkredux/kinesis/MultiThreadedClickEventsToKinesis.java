@@ -9,7 +9,7 @@ import java.util.stream.IntStream;
 
 public class MultiThreadedClickEventsToKinesis extends AbstractClickEventsToKinesis{
 
-    //Just creates multiple instances of AmazonKinesisClient and run in parallel but still do
+    //Just creates multiple instances of AmazonKinesis and run in parallel but still do
     //single HTTP requests for each record
     private final List<BasicClickEventsToKinesis> children;
     private final ExecutorService executor;
